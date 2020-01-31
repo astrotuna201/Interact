@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 
 /// Protocol used in `ThrowableModel` to give more customizability to the forces exerted on the view after it has been thrown
