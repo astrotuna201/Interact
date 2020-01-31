@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import Combine
 
 /// Data model describing a view that can be rotated and spun with a handle.
 @available(iOS 13.0, macOS 10.15, watchOS 6.0 , tvOS 13.0, *)
