@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import Combine
 
 /// Protocol used to describe the angular velocity of a spinnable view
 /// Only has two requirements to ensure compatability with the `SpinnableModel`
