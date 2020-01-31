@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 /// Data Model that provides all needed components for a resizable overlay
 /// Uses a generic type `Handle` to create the views in each of the four corners of the overlay.
