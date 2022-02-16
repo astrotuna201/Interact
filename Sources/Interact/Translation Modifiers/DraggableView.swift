@@ -84,7 +84,7 @@ public struct DraggableView<Content: View>: View {
         public var gesture: some Gesture {
             DragGesture(minimumDistance: 0, coordinateSpace: .global)
                 .onChanged { (value) in
-                    let translation = CGSize(width: value.translation.width, height: -value.translation.height)
+                    let translation = CGSize(width: value.translation.width, height: value.translation.height)
                     let velocity = self.calculateDragVelocity(translation: translation, time: value.time)
                     withAnimation(.linear) {
                         self.gestureState = DragState.active(time: value.time,

@@ -37,7 +37,7 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
     var topLead: some View {
         
         
-        let pX = topLeadState.width + bottomLeadState.width
+        let pX = topLeadState.width  + bottomLeadState.width
         let pY = topLeadState.height + topTrailState.height
         
         let oX = -size.width*(magnification-1)/2
@@ -48,13 +48,13 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 self.topLeadState = value.translation
             })
             .onEnded { (value) in
-                let x = cos(self.angle)*value.translation.width - sin(self.angle)*value.translation.height
+                let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                self.offset.width += x/2
-                self.offset.height += y/2
+                //self.offset.width  += x/2
+                //self.offset.height += y/2
                 
-                self.size.width -= value.translation.width
+                self.size.width  -= value.translation.width
                 self.size.height -= value.translation.height
                 
                 self.topLeadState = .zero
@@ -75,7 +75,7 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
         let pY = size.height + bottomTrailState.height + bottomLeadState.height
         
         let oX = -size.width*(magnification-1)/2
-        let oY = size.height*(magnification-1)/2
+        let oY = +size.height*(magnification-1)/2
         
         
         let dragGesture = DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -83,13 +83,13 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 self.bottomLeadState = value.translation
             })
             .onEnded { (value) in
-                let x = cos(self.angle)*value.translation.width - sin(self.angle)*value.translation.height
+                let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                self.offset.width += x/2
-                self.offset.height += y/2
+                //self.offset.width  += x/2
+                //self.offset.height += y/2
                 
-                self.size.width -= value.translation.width
+                self.size.width  -= value.translation.width
                 self.size.height += value.translation.height
                 
                 self.bottomLeadState = .zero
@@ -109,7 +109,7 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
         let pX = size.width + bottomTrailState.width + topTrailState.width
         let pY = topLeadState.height + topTrailState.height
         
-        let oX = size.width*(magnification-1)/2
+        let oX = +size.width*(magnification-1)/2
         let oY = -size.height*(magnification-1)/2
         
         let dragGesture = DragGesture(minimumDistance: 0, coordinateSpace: .local)
@@ -117,11 +117,11 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 self.topTrailState = value.translation
             })
             .onEnded { (value) in
-                let x = cos(self.angle)*value.translation.width - sin(self.angle)*value.translation.height
+                let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                self.offset.width += x/2
-                self.offset.height += y/2
+                //self.offset.width  += x/2
+                //self.offset.height += y/2
                 
                 self.size.width += value.translation.width
                 self.size.height -= value.translation.height
@@ -142,20 +142,20 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
         let pX = size.width + topTrailState.width + bottomTrailState.width
         let pY = size.height + bottomLeadState.height + bottomTrailState.height
         
-        let oX = size.width*(magnification-1)/2
-        let oY = size.height*(magnification-1)/2
+        let oX = +size.width*(magnification-1)/2
+        let oY = +size.height*(magnification-1)/2
         
         let dragGesture = DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onChanged({ (value) in
                 self.bottomTrailState = value.translation
             })
             .onEnded { (value) in
-                let x = cos(self.angle)*value.translation.width - sin(self.angle)*value.translation.height
+                let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                self.offset.width += x/2
-                self.offset.height += y/2
-                self.size.width += value.translation.width
+                //self.offset.width  += x/2
+                //self.offset.height += y/2
+                self.size.width  += value.translation.width
                 self.size.height += value.translation.height
                 
                 self.bottomTrailState = .zero

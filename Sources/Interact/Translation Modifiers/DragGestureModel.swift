@@ -76,26 +76,26 @@ public class DragGestureModel: DragModel, ObservableObject {
     
     // MARK: Throw Gesture
     
-    #if os(macOS)
-        public var gesture: some Gesture {
-            DragGesture(minimumDistance: 0, coordinateSpace: .global)
-                .onChanged { (value) in
-                    let translation = CGSize(width: value.translation.width, height: -value.translation.height)
-                    let velocity = self.calculateDragVelocity(translation: translation, time: value.time)
-                    self.gestureState = DragState.active(time: value.time,
-                                                    translation: translation,
-                                                    velocity: velocity)
-            }
-            .onEnded { (value) in
-                
-                self.offset.width += value.translation.width
-                self.offset.height -= value.translation.height
-                
-                self.gestureState = DragState.inactive
-            }
-        }
-    
-    #else
+   // #if os(macOS)
+   //     public var gesture: some Gesture {
+   //         DragGesture(minimumDistance: 0, coordinateSpace: .global)
+   //             .onChanged { (value) in
+   //                 let translation = CGSize(width: value.translation.width, height: value.translation.height)
+   //                 let velocity = self.calculateDragVelocity(translation: translation, time: value.time)
+   //                 self.gestureState = DragState.active(time: value.time,
+   //                                                 translation: translation,
+   //                                                 velocity: velocity)
+   //         }
+   //         .onEnded { (value) in
+   //
+   //             self.offset.width += value.translation.width
+   //             self.offset.height += value.translation.height
+   //
+   //             self.gestureState = DragState.inactive
+   //         }
+   //     }
+   //
+   // #else
     public var gesture: some Gesture {
         DragGesture(minimumDistance: 0, coordinateSpace: .global)
             .onChanged { (value) in
@@ -112,7 +112,7 @@ public class DragGestureModel: DragModel, ObservableObject {
         }
     }
     
-    #endif
+   // #endif
     
     // MARK: Init
     public init(offset: Binding<CGSize>, dragState: Binding<TranslationState>) {
