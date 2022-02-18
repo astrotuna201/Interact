@@ -54,7 +54,7 @@ public struct ResizableRotatable<ResizingHandle: View, RotationHandle: View, R: 
     }
     
     
-    public init(initialSize: CGSize, dependencies: ObservedObject<GestureDependencies>,
+  public init(initialSize: CGSize, offset: CGSize = .zero, angle: CGFloat = 0, dependencies: ObservedObject<GestureDependencies>,
                 resizingHandle: @escaping (_ isSelected: Bool, _ isActive: Bool) -> ResizingHandle,
                 rotationModel: R,
                 translationModel: T) {
@@ -146,7 +146,7 @@ public extension View {
     ///
     ///
     func resizable<ResizingHandle: View,
-        RotationHandle: View>(initialSize: CGSize ,
+                   RotationHandle: View>(initialSize: CGSize, offset: CGSize = .zero, angle: CGFloat = 0,
                               @ViewBuilder resizingHandle: @escaping (_ isSelected: Bool, _ isActive: Bool) -> ResizingHandle,
                                            rotationType: RotationType<RotationHandle>,
                                            dragType: DragType = .drag) -> some View  {
@@ -157,7 +157,7 @@ public extension View {
             switch dragType {
             case .drag:
                 return AnyView(
-                   self.injectDependencies(initialSize: initialSize,
+                  self.injectDependencies(initialSize: initialSize, offset: offset, angle: angle,
                                          modifier: { (dependencies)   in
                                            ResizableRotatable<ResizingHandle, RotationHandle, RotationOverlayModel, DragGestureModel>(
                                                    initialSize: initialSize,

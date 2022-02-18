@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-import Combine
+//import Combine
 
 @available(iOS 13.0, macOS 10.15, watchOS 6.0 , tvOS 13.0, *)
 public class GestureDependencies: ObservableObject {
@@ -29,6 +29,12 @@ public class GestureDependencies: ObservableObject {
     init(initialSize: CGSize) {
         self.size = initialSize
     }
+  
+  init(initialSize: CGSize, offset: CGSize = .zero, angle: CGFloat = 0) {
+    self.size = initialSize
+    self.angle = angle
+    self.offset = offset
+  }
 }
 
 
@@ -45,6 +51,11 @@ public struct DependencyBuffer<Modifier: ViewModifier>: ViewModifier {
         self.dependencies = GestureDependencies(initialSize: initialSize)
         self.modifier = modifier
     }
+  
+  init(initialSize: CGSize, offset: CGSize = .zero, angle: CGFloat = 0, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) {
+    self.dependencies = GestureDependencies(initialSize: initialSize, offset: offset, angle: angle)
+    self.modifier = modifier
+  }
     
     
     public func body(content: Content) -> some View {
@@ -67,6 +78,10 @@ public extension View {
     func injectDependencies<Modifier: ViewModifier>(initialSize: CGSize, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) -> some View {
         self.modifier(DependencyBuffer(initialSize: initialSize, modifier: modifier))
     }
+  
+  func injectDependencies<Modifier: ViewModifier>(initialSize: CGSize, offset: CGSize, angle: CGFloat, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) -> some View {
+    self.modifier(DependencyBuffer(initialSize: initialSize, offset: offset, angle: angle, modifier: modifier))
+  }
     
     
 }
