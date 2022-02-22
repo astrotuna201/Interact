@@ -145,9 +145,12 @@ public extension View {
     ///           }))
     ///
     ///
-    func resizable<ResizingHandle: View,
-                   RotationHandle: View>(initialSize: CGSize, offset: CGSize = .zero, angle: CGFloat = 0,
-                              @ViewBuilder resizingHandle: @escaping (_ isSelected: Bool, _ isActive: Bool) -> ResizingHandle,
+    func resizable<ResizingHandle: View, RotationHandle: View>(
+      id: UUID = UUID(),
+      initialSize: CGSize,
+      initialOffset: CGSize = .zero,
+      initialAngle: CGFloat = 0,
+      @ViewBuilder resizingHandle: @escaping (_ isSelected: Bool, _ isActive: Bool) -> ResizingHandle,
                                            rotationType: RotationType<RotationHandle>,
                                            dragType: DragType = .drag) -> some View  {
         switch rotationType {
@@ -157,7 +160,7 @@ public extension View {
             switch dragType {
             case .drag:
                 return AnyView(
-                  self.injectDependencies(initialSize: initialSize, offset: offset, angle: angle,
+                  self.injectDependencies(id: id, initialSize: initialSize, initialOffset: initialOffset, initialAngle: initialAngle,
                                          modifier: { (dependencies)   in
                                            ResizableRotatable<ResizingHandle, RotationHandle, RotationOverlayModel, DragGestureModel>(
                                                    initialSize: initialSize,
@@ -166,7 +169,8 @@ public extension View {
                                                    rotationModel: RotationOverlayModel(dependencies: dependencies,
                                                                                        handle: handle),
                                                    translationModel: DragGestureModel(offset: dependencies.projectedValue.offset, dragState: dependencies.projectedValue.dragState))
-                   })
+                                             
+                                         })
                 )
             case .throwable(model: let model, threshold: let threshold):
                 return AnyView(
