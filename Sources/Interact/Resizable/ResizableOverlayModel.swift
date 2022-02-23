@@ -51,8 +51,8 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                //self.offset.width  += x/2
-                //self.offset.height += y/2
+                self.offset.width  += x
+                self.offset.height += y
                 
                 self.size.width  -= value.translation.width
                 self.size.height -= value.translation.height
@@ -86,8 +86,8 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                //self.offset.width  += x/2
-                //self.offset.height += y/2
+                self.offset.width  += x
+                self.offset.height += y
                 
                 self.size.width  -= value.translation.width
                 self.size.height += value.translation.height
@@ -120,8 +120,8 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                //self.offset.width  += x/2
-                //self.offset.height += y/2
+                self.offset.width  += x
+                self.offset.height += y
                 
                 self.size.width += value.translation.width
                 self.size.height -= value.translation.height
@@ -153,8 +153,8 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 let x = cos(self.angle)*value.translation.width  - sin(self.angle)*value.translation.height
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
-                //self.offset.width  += x/2
-                //self.offset.height += y/2
+                self.offset.width  += x
+                self.offset.height += y
                 self.size.width  += value.translation.width
                 self.size.height += value.translation.height
                 
