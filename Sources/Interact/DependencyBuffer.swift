@@ -40,7 +40,7 @@ public class GestureDependencies: ObservableObject {
 
 
 public struct RotBoxPreferenceKey: PreferenceKey {
-  public static var defaultValue: RotBoxPreferenceKeyData = RotBoxPreferenceKeyData(id:UUID(uuid: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)),  angle: .zero, offset: .zero, size: .zero)
+  public static var defaultValue: RotBoxPreferenceKeyData = RotBoxPreferenceKeyData(id:"none",  angle: .zero, offset: .zero, size: .zero)
 
     public static  func reduce(value: inout RotBoxPreferenceKeyData, nextValue: () -> RotBoxPreferenceKeyData) {
         value = nextValue()
@@ -48,7 +48,7 @@ public struct RotBoxPreferenceKey: PreferenceKey {
 }
 
 public struct RotBoxPreferenceKeyData: Equatable {
-  public let id: UUID
+  public let id: String
   public let angle: CGFloat
   public let offset: CGSize
   public let size: CGSize
@@ -58,17 +58,17 @@ public struct RotBoxPreferenceKeyData: Equatable {
 @available(iOS 13.0, macOS 10.15, watchOS 6.0 , tvOS 13.0, *)
 public struct DependencyBuffer<Modifier: ViewModifier>: ViewModifier {
   @ObservedObject var dependencies: GestureDependencies
-  public var id: UUID = UUID()
+  public var id: String = "\(Int.random(in: 0...Int.max))"
   var modifier: (ObservedObject<GestureDependencies>) -> Modifier
   
   
-  init(id: UUID = UUID(), initialSize: CGSize, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) {
+  init(id: String, initialSize: CGSize, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) {
     self.id = id
     self.dependencies = GestureDependencies(initialSize: initialSize)
     self.modifier = modifier
   }
   
-  init(id: UUID = UUID(), initialSize: CGSize, initialOffset: CGSize = .zero, initialAngle: CGFloat = 0, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) {
+  init(id: String, initialSize: CGSize, initialOffset: CGSize = .zero, initialAngle: CGFloat = 0, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) {
     self.id = id
     self.dependencies = GestureDependencies(initialSize: initialSize, initialOffset: initialOffset, initialAngle: initialAngle)
     self.modifier = modifier
@@ -93,11 +93,11 @@ public struct DependencyBuffer<Modifier: ViewModifier>: ViewModifier {
 @available(iOS 13.0, macOS 10.15, watchOS 6.0 , tvOS 13.0, *)
 public extension View {
     
-  func injectDependencies<Modifier: ViewModifier>(id: UUID = UUID(), initialSize: CGSize, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) -> some View {
+  func injectDependencies<Modifier: ViewModifier>(id: String, initialSize: CGSize, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) -> some View {
     self.modifier(DependencyBuffer(id: id, initialSize: initialSize, modifier: modifier))
   }
   
-  func injectDependencies<Modifier: ViewModifier>(id: UUID, initialSize: CGSize, initialOffset: CGSize, initialAngle: CGFloat, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) -> some View {
+  func injectDependencies<Modifier: ViewModifier>(id: String, initialSize: CGSize, initialOffset: CGSize, initialAngle: CGFloat, modifier: @escaping (ObservedObject<GestureDependencies>) -> Modifier) -> some View {
     self.modifier(DependencyBuffer(id: id, initialSize: initialSize, initialOffset: initialOffset, initialAngle: initialAngle, modifier: modifier))
       
   }

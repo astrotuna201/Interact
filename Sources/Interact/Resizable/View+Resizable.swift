@@ -93,9 +93,9 @@ public extension View {
     ///               })
     ///
     ///
-    func resizable<Handle: View>(initialSize: CGSize, @ViewBuilder handle: @escaping (_ isSelected: Bool, _ isActive: Bool) -> Handle) -> some View {
+  func resizable<Handle: View>(id: String, initialSize: CGSize, @ViewBuilder handle: @escaping (_ isSelected: Bool, _ isActive: Bool) -> Handle) -> some View {
         
-        self.injectDependencies(initialSize: initialSize) { (dependencies)  in
+    self.injectDependencies(id: id, initialSize: initialSize) { (dependencies)  in
             Resizable(initialSize: initialSize,
                       dependencies: dependencies,
                       handle: handle)
@@ -146,7 +146,7 @@ public extension View {
     ///
     ///
     func resizable<ResizingHandle: View, RotationHandle: View>(
-      id: UUID = UUID(),
+      id: String,
       initialSize: CGSize,
       initialOffset: CGSize = .zero,
       initialAngle: CGFloat = 0,
@@ -174,7 +174,7 @@ public extension View {
                 )
             case .throwable(model: let model, threshold: let threshold):
                 return AnyView(
-                    self.injectDependencies(initialSize: initialSize,
+                  self.injectDependencies(id: id, initialSize: initialSize,
                                           modifier: { (dependencies)   in
                                             ResizableRotatable<ResizingHandle, RotationHandle, RotationOverlayModel, ThrowableModel>(
                                                     initialSize: initialSize,
@@ -193,7 +193,7 @@ public extension View {
             switch dragType {
             case .drag:
                 return AnyView(
-                    self.injectDependencies(initialSize: initialSize, modifier: { (dependencies)  in
+                    self.injectDependencies(id: id, initialSize: initialSize, modifier: { (dependencies)  in
                         ResizableRotatable<ResizingHandle,RotationHandle,SpinnableModel, DragGestureModel>(
                             initialSize: initialSize,
                               dependencies: dependencies,
@@ -208,7 +208,7 @@ public extension View {
                 
             case .throwable( let vModel,  let vThreshold):
                 return AnyView(
-                    self.injectDependencies(initialSize: initialSize, modifier: { (dependencies)  in
+                    self.injectDependencies(id: id, initialSize: initialSize, modifier: { (dependencies)  in
                         ResizableRotatable<ResizingHandle,RotationHandle,SpinnableModel, ThrowableModel>(
                             initialSize: initialSize,
                               dependencies: dependencies,
