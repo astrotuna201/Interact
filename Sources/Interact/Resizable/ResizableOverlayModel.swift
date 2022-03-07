@@ -87,7 +87,7 @@ public class ResizableOverlayModel<Handle: View>: ObservableObject {
                 let y = cos(self.angle)*value.translation.height + sin(self.angle)*value.translation.width
                 
                 self.offset.width  += x
-                self.offset.height += y
+                //self.offset.height += y
                 
                 self.size.width  -= value.translation.width
                 self.size.height += value.translation.height
